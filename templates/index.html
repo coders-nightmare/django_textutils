@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Textutils</title>
+  </head>
+  <body>
+    <h1>Welcome to text analyzar</h1>
+    <h2>Enter your text</h2>
+    <form action="/analyze" method="GET">
+      <textarea name="text" id="" cols="100" rows="6"></textarea><br />
+      <input type="checkbox" name="removepunc" id="" /> Remove punctuation
+      <br />
+      <button type="submit">Analyze text</button>
+    </form>
+    <br />
+    <h3>made by: {{ name }}</h3>
+    <h3>age: {{ age }}</h3>
+  </body>
+</html>
