@@ -16,45 +16,59 @@ def analyze(request):
     newlineremover = request.POST.get('newlineremover', None)
     spaceremover = request.POST.get('spaceremover', None)
     charcount = request.POST.get('charcount', None)
+    count = 0
     # check for puctuation
     if removepunc == "on":
-        punctuations = '''!"#$%&'()*+,; -./:<= >?@[\] ^ _`{ | }~'''
-        analyzed_text = ""
+        punctuations = '''!"#$%&'()*+,;-./:<=>?@[\]^_`{|}~'''
+        analyzed = ""
         for char in text:
             if char not in punctuations:
-                analyzed_text = analyzed_text+char
-        d = {'analyzed_text': analyzed_text, 'purpose': 'removed puctuation'}
-        return render(request, 'analyze.html', d)
+                analyzed = analyzed+char
+        d = {'analyzed_text': analyzed, 'purpose': 'removed puctuation'}
+        text = analyzed
+        count = count+1
 
     # check for capitalization
-    elif fullcaps == 'on':
+    if fullcaps == 'on':
         analyzed = ""
         for char in text:
             analyzed = analyzed + char.upper()
         d = {'analyzed_text': analyzed, 'purpose': 'Changed to UPPERCASE'}
-        return render(request, 'analyze.html', d)
+        text = analyzed
+        count = count+1
     # new line remover
-    elif newlineremover == 'on':
+    if newlineremover == 'on':
         analyzed = ""
         for char in text:
             if char != '\n' and char != '\r':
                 analyzed = analyzed + char
         d = {'analyzed_text': analyzed, 'purpose': 'Removed new lines'}
-        return render(request, 'analyze.html', d)
+        text = analyzed
+        count = count+1
     # Space remover
-    elif spaceremover == 'on':
+    if spaceremover == 'on':
         analyzed = ""
         for index, char in enumerate(text):
-            if text[index] == ' ' and text[index+1] == ' ':
+            try:
+                if text[index] == ' ' and text[index+1] == ' ':
+                    pass
+                else:
+                    analyzed = analyzed + char
+            except:
                 pass
-            else:
-                analyzed = analyzed + char
         d = {'analyzed_text': analyzed, 'purpose': 'Removed extra Spaces'}
-        return render(request, 'analyze.html', d)
+        text = analyzed
+        count = count+1
     # Character counter
-    elif charcount == 'on':
+    if charcount == 'on':
         analyzed = "No of Charaters = "+str(len(text))
         d = {'analyzed_text': analyzed, 'purpose': 'Characters Counted'}
+        count = count+1
+    # Done to show purpose accordingly
+    if(count == 1):
+        return render(request, 'analyze.html', d)
+    elif(count > 1):
+        d = {'analyzed_text': analyzed, 'purpose': 'Multi Formatting'}
         return render(request, 'analyze.html', d)
     else:
         return HttpResponse("<h1>Error<h1>")

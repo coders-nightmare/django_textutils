@@ -112,11 +112,12 @@
         <!-- form -->
         <div class="container-fluid">
           <form action="analyze" method="POST">
+            <!-- it is include becuse out method is post and it requires some security policies -->
             {% csrf_token %}
             <div class="form-group">
               <label for="exampleFormControlTextarea1"
-                >Enter your text here and let the text uyils do the
-                matching</label
+                >Enter your text here and let the text utils to do the
+                magic</label
               >
               <textarea
                 class="form-control"
