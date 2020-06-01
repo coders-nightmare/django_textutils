@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% csrf_token %}
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -113,7 +115,7 @@
         <!-- Content -->
         <div class="container-fluid">
           <div class="h1">Analyzed text - {{ purpose }}</div>
-          <p>{{analyzed_text}}</p>
+          <pre>{{analyzed_text}}</pre>
         </div>
         <!-- Content end -->
         <!-- Optional JavaScript -->

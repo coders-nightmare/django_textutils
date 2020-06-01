@@ -10,12 +10,12 @@ def index(request):
 
 def analyze(request):
     # get text
-    text = request.GET.get('text', None)
-    removepunc = request.GET.get('removepunc', None)
-    fullcaps = request.GET.get('fullcaps', None)
-    newlineremover = request.GET.get('newlineremover', None)
-    spaceremover = request.GET.get('spaceremover', None)
-    charcount = request.GET.get('charcount', None)
+    text = request.POST.get('text', None)
+    removepunc = request.POST.get('removepunc', None)
+    fullcaps = request.POST.get('fullcaps', None)
+    newlineremover = request.POST.get('newlineremover', None)
+    spaceremover = request.POST.get('spaceremover', None)
+    charcount = request.POST.get('charcount', None)
     # check for puctuation
     if removepunc == "on":
         punctuations = '''!"#$%&'()*+,; -./:<= >?@[\] ^ _`{ | }~'''
@@ -37,7 +37,7 @@ def analyze(request):
     elif newlineremover == 'on':
         analyzed = ""
         for char in text:
-            if char != '\n':
+            if char != '\n' and char != '\r':
                 analyzed = analyzed + char
         d = {'analyzed_text': analyzed, 'purpose': 'Removed new lines'}
         return render(request, 'analyze.html', d)

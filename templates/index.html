@@ -111,7 +111,8 @@
         <!-- end of alert -->
         <!-- form -->
         <div class="container-fluid">
-          <form action="analyze" method="GET">
+          <form action="analyze" method="POST">
+            {% csrf_token %}
             <div class="form-group">
               <label for="exampleFormControlTextarea1"
                 >Enter your text here and let the text uyils do the
